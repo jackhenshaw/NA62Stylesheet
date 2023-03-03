@@ -1,0 +1,7 @@
+# test scripts
+test.C
+test.py
+
+# test images for comparison
+*.png
+
