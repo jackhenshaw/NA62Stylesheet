@@ -42,7 +42,7 @@ TStyle* NA62Style()
 
   // set title offsets (for axis label)
   na62Style->SetTitleXOffset(1.2);
-  na62Style->SetTitleYOffset(0.8);
+  na62Style->SetTitleYOffset(1.0);
 
   // Change to Helvetica
   // - if font=42, tsize is fraction of pad. (0.05)
@@ -95,6 +95,7 @@ TStyle* NA62Style()
 
   // 2D colour palette
   na62Style->SetHistLineColor(GetNA62Color(0));
+  na62Style->SetMarkerColor(GetNA62Color(0));
   na62Style->SetPalette(kRainBow); // closest match to matplotlib jet
   na62Style->SetNumberContours(256); // smooth colour bar
 
