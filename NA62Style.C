@@ -38,7 +38,7 @@ TStyle* NA62Style()
   na62Style->SetPadRightMargin(0.03);
   na62Style->SetPadTopMargin(0.06);
   na62Style->SetPadBottomMargin(0.14);
-  na62Style->SetPadLeftMargin(0.09);
+  //na62Style->SetPadLeftMargin(0.09);
 
   // set title offsets (for axis label)
   na62Style->SetTitleXOffset(1.2);
@@ -47,8 +47,8 @@ TStyle* NA62Style()
   // Change to Helvetica
   // - if font=42, tsize is fraction of pad. (0.05)
   // - if font=43, tsize is pixels (32)
-  Int_t font=42;
-  Double_t tsize=0.05;
+  Int_t font=43;
+  Double_t tsize=32;
   na62Style->SetTextFont(font);
   na62Style->SetTextSize(tsize);
   na62Style->SetLabelFont(font,"x");
@@ -128,6 +128,7 @@ TPaveText* NA62Label(std::string pos="", const char* note="") {
 
   transform(pos.begin(), pos.end(), pos.begin(), ::toupper);
 
+  // if no right padding, swap 0.82 -> 0.77
   if (pos == "TR") na62label = NA62Label(0.82, 0.80, note);
   if (pos == "TL") na62label = NA62Label(0.12, 0.80, note);
   if (pos == "BR") na62label = NA62Label(0.82, 0.17, note);
@@ -195,4 +196,37 @@ Int_t GetNA62Color(std::string col) {
 
   std::cout << "unknown colour! defaulting to NA62 blue" << std::endl;
   return GetNA62Color(0);
+}
+
+void FormatRatioCanvas(TCanvas *c) {
+  c->Divide(2,2);
+
+  // Discard pad
+  c->cd(1)->SetPad(0.1, 0.1, 1.0, 1.0);
+  c->cd(1)->SetTopMargin(0);
+  c->cd(1)->SetBottomMargin(0);
+  c->cd(1)->SetLeftMargin(0);
+  c->cd(1)->SetRightMargin(0);
+
+  // Top Left (data)
+  c->cd(2)->SetPad(0.0, 0.3, 0.5, 1.0);
+  c->cd(2)->SetGrid();
+  c->cd(2)->SetBottomMargin(0.1);
+  c->cd(2)->SetLeftMargin(0.14);
+  c->cd(2)->SetRightMargin(0.01);
+
+  // Top Right (MC)
+  c->cd(3)->SetPad(0.5, 0.3, 1.0, 1.0);
+  c->cd(3)->SetGrid();
+  c->cd(3)->SetBottomMargin(0.1);
+  c->cd(3)->SetRightMargin(0.06);
+  c->cd(3)->SetLeftMargin(0.01);
+
+  // Bottom (ratio)
+  c->cd(4)->SetPad(0.0, 0.01, 1.0, 0.34);
+  c->cd(4)->SetTopMargin(0.05);
+  c->cd(4)->SetBottomMargin(0.25);
+  c->cd(4)->SetLeftMargin(0.07);
+  c->cd(4)->SetRightMargin(0.02);
+  c->cd(4)->SetGrid();
 }
