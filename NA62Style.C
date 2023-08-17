@@ -47,8 +47,8 @@ TStyle* NA62Style()
   // Change to Helvetica
   // - if font=42, tsize is fraction of pad. (0.05)
   // - if font=43, tsize is pixels (32)
-  Int_t font=43;
-  Double_t tsize=32;
+  Int_t font=42;
+  Double_t tsize=0.05;
   na62Style->SetTextFont(font);
   na62Style->SetTextSize(tsize);
   na62Style->SetLabelFont(font,"x");
@@ -114,7 +114,6 @@ TPaveText* NA62Label(double x, double y, const char *note=""){
   na62label->SetLineStyle(0); // transparent
   na62label->SetBorderSize(0);
 
-  na62label->AddText("#bf{NA62}");
   if (note) {
     TText *n = na62label->AddText(note);
     n->SetTextSize(0.05);
@@ -192,41 +191,34 @@ Int_t GetNA62Color(std::string col) {
   if (col=="pink")        return GetNA62Color(6);
   if (col=="grey")        return GetNA62Color(7);
   if (col=="yellowgreen") return GetNA62Color(8);
-  if (col=="cyan")        return GetNA62Color(8);
+  if (col=="cyan")        return GetNA62Color(9);
 
   std::cout << "unknown colour! defaulting to NA62 blue" << std::endl;
   return GetNA62Color(0);
 }
 
 void FormatRatioCanvas(TCanvas *c) {
-  c->Divide(2,2);
+  c->Divide(1,3);
 
-  // Discard pad
-  c->cd(1)->SetPad(0.1, 0.1, 1.0, 1.0);
-  c->cd(1)->SetTopMargin(0);
-  c->cd(1)->SetBottomMargin(0);
-  c->cd(1)->SetLeftMargin(0);
-  c->cd(1)->SetRightMargin(0);
+  // data
+  c->cd(1)->SetGrid();
+  //c->cd(1)->SetTopMargin(0);
+  //c->cd(1)->SetBottomMargin(0);
+  //c->cd(1)->SetLeftMargin(0);
+  //c->cd(1)->SetRightMargin(0);
 
-  // Top Left (data)
-  c->cd(2)->SetPad(0.0, 0.3, 0.5, 1.0);
+  // MC
   c->cd(2)->SetGrid();
-  c->cd(2)->SetBottomMargin(0.1);
-  c->cd(2)->SetLeftMargin(0.14);
-  c->cd(2)->SetRightMargin(0.01);
+  //c->cd(2)->SetTopMargin(0);
+  //c->cd(2)->SetBottomMargin(0.1);
+  //c->cd(2)->SetLeftMargin(0.14);
+  //c->cd(2)->SetRightMargin(0.01);
 
-  // Top Right (MC)
-  c->cd(3)->SetPad(0.5, 0.3, 1.0, 1.0);
+  // Ratio
   c->cd(3)->SetGrid();
-  c->cd(3)->SetBottomMargin(0.1);
-  c->cd(3)->SetRightMargin(0.06);
-  c->cd(3)->SetLeftMargin(0.01);
+  //c->cd(3)->SetTopMargin(0);
+  //c->cd(3)->SetBottomMargin(0.1);
+  //c->cd(3)->SetRightMargin(0.06);
+  //c->cd(3)->SetLeftMargin(0.01);
 
-  // Bottom (ratio)
-  c->cd(4)->SetPad(0.0, 0.01, 1.0, 0.34);
-  c->cd(4)->SetTopMargin(0.05);
-  c->cd(4)->SetBottomMargin(0.25);
-  c->cd(4)->SetLeftMargin(0.07);
-  c->cd(4)->SetRightMargin(0.02);
-  c->cd(4)->SetGrid();
 }
