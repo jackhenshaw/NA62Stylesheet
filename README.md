@@ -1,2 +1,3 @@
 # NA62Stylesheet
-Root stylesheet for NA62 to match a similar style created in mplhep for python
+Stylesheet for plots created with the ROOT framework. 
+Designed to match a similar style to those created in Python's mplhep package for the NA62 experiment.
